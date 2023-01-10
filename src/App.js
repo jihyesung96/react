@@ -8,8 +8,8 @@ import Todolists from './components/Todolists';
 function App() {
   const [todoState, setTodoState] = useState({
     todoLists: [
-      {id: 1, text: "할일1"},
-      {id: 2, text: "할일2"}
+      {id: 1, text: "할일1", isDone:false},
+      {id: 2, text: "할일2", isDone:true}
     ],
     inputText: ""
   });
@@ -24,7 +24,7 @@ function App() {
 const onAddTodo = () => {
   const newTodoLists = [
       ...todoState.todoLists,
-      {id: id, text: todoState.inputText}
+      {id: id, text: todoState.inputText, isDone:false}
   ]
   setTodoState({
     todoLists:newTodoLists,
@@ -34,7 +34,14 @@ const onAddTodo = () => {
   console.log(todoState.todoLists)
 }
 const delTodoLists = (id) =>{
-  const newTodoLists = todoState.todoLists.filter(todo => todo.id != id);
+  const newTodoLists = todoState.todoLists.filter(todo => todo.id !== id);
+  setTodoState({
+    ...todoState,
+    todoLists: newTodoLists});
+}
+
+const onIsDoneToggle = (id) => {
+  const newTodoLists = todoState.todoLists.map(todo=> todo.id === id ?{...todo, isDone: !todo.isDone} : todo);
   setTodoState({
     ...todoState,
     todoLists: newTodoLists});
@@ -45,7 +52,7 @@ const delTodoLists = (id) =>{
       onChange={onChange} 
       onAddTodo={onAddTodo}/>
       <Todolists todoLists={todoState.todoLists}
-      delTodoLists={delTodoLists}/> 
+      delTodoLists={delTodoLists} onIsDoneToggle={onIsDoneToggle}/> 
     </div>
   );
 }
