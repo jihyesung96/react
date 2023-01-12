@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const HeaderInput = ({inputText, onChange, onAddTodo}) => {
+    useEffect(()=>{
+        console.log("HeaderInput 컴포넌트 그립니다.");
+    })
     //const{inputText, onChange, onAddTodo} = props;
     return (
         <div className="header">
